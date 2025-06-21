@@ -15,7 +15,7 @@
   </div>
 
   <script>
-    fetch('/user')
+    fetch('/.netlify/functions/user')
       .then(res => res.json())
       .then(user => {
         const html = \`
@@ -27,15 +27,15 @@
             16 years old<br/>
             Lives in Austria 🇦🇹
           </p>
-          <a href="https://cncworldshop24.de" target="_blank" class="link">🌐 Zu meinem Shop</a>
+          <a href="https://cncwoldshop24.de" target="_blank" class="link">🌐 Zu meinem Shop</a>
         \`;
         document.getElementById('userContent').innerHTML = html;
       })
       .catch(() => {
-        document.getElementById('userContent').innerHTML = '<a href="/login" class="link">🔐 Mit Discord einloggen</a>';
+        document.getElementById('userContent').innerHTML = '<a href="/.netlify/functions/login" class="link">🔐 Mit Discord einloggen</a>';
       });
 
-    particlesJS.load('particles-js', '/particles.json');
+    particlesJS.load('particles-js', 'particles.json');
   </script>
 </body>
 </html>
