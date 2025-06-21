@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>fyp_edits____ | Portfolio</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <div class="content" id="userContent">
+    <h1>Lade...</h1>
+  </div>
+
+  <script>
+    fetch('/user')
+      .then(res => res.json())
+      .then(user => {
+        const html = \`
+          <img src="\${user.avatar}" class="avatar" />
+          <h1>👾 Discord: \${user.username}</h1>
+          <p class="status">🟢 Status: Online</p>
+          <p class="description">
+            Great server owner<br/>
+            16 years old<br/>
+            Lives in Austria 🇦🇹
+          </p>
+          <a href="https://cncworldshop24.de" target="_blank" class="link">🌐 Zu meinem Shop</a>
+        \`;
+        document.getElementById('userContent').innerHTML = html;
+      })
+      .catch(() => {
+        document.getElementById('userContent').innerHTML = '<a href="/login" class="link">🔐 Mit Discord einloggen</a>';
+      });
+
+    particlesJS.load('particles-js', '/particles.json');
+  </script>
+</body>
+</html>
