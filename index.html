@@ -10,17 +10,25 @@
 <body>
   <div id="particles-js"></div>
 
-  <div class="content" id="userContent">
-    <h1>Lade...</h1>
-  </div>
+  <div class="content" id="userContent"></div>
 
   <script>
+    // Userdaten vom Server abrufen
     fetch('/.netlify/functions/user')
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 404) {
+          // Kein User eingeloggt → direkt weiterleiten zur Discord OAuth2 Login Funktion
+          window.location.href = '/.netlify/functions/login';
+          return;
+        }
+        return res.json();
+      })
       .then(user => {
-        const html = \`
-          <img src="\${user.avatar}" class="avatar" />
-          <h1>👾 Discord: \${user.username}</h1>
+        if (!user) return;
+        // User anzeigen
+        const html = `
+          <img src="${user.avatar}" class="avatar" />
+          <h1>👾 Discord: ${user.username}</h1>
           <p class="status">🟢 Status: Online</p>
           <p class="description">
             Great server owner<br/>
@@ -28,11 +36,12 @@
             Lives in Austria 🇦🇹
           </p>
           <a href="https://cncwoldshop24.de" target="_blank" class="link">🌐 Zu meinem Shop</a>
-        \`;
+        `;
         document.getElementById('userContent').innerHTML = html;
       })
       .catch(() => {
-        document.getElementById('userContent').innerHTML = '<a href="/.netlify/functions/login" class="link">🔐 Mit Discord einloggen</a>';
+        // Bei Fehler auch direkt weiterleiten (optional)
+        window.location.href = '/.netlify/functions/login';
       });
 
     particlesJS.load('particles-js', 'particles.json');
