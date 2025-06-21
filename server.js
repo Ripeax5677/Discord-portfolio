@@ -4,8 +4,8 @@ const fs = require("fs");
 const app = express();
 require("dotenv").config();
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const CLIENT_ID = 1327337078698020986;
+const CLIENT_SECRET = DmcLJIkadP_Jj4xGO-9bqWc2ahIOlvDj;
 const REDIRECT_URI = "http://localhost:3000/callback";
 
 let userData;
